@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://rv62s8xrtbeg"]
+
+[ext_resource type="Texture2D" uid="uid://ce0ex31k3qc0g" path="res://Monstrums/Gobootoo/Sprites/gobootoo.png" id="1_gq1rl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v7t4"]
+radius = 40.0
+height = 160.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv8se"]
+atlas = ExtResource("1_gq1rl")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_og6ym"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vv8se")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Gobootoo" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2v7t4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -48)
+sprite_frames = SubResource("SpriteFrames_og6ym")
+autoplay = "default"

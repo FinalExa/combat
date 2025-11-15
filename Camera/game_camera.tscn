@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkjgovuck77sq"]
+
+[ext_resource type="Script" path="res://Camera/Scripts/GameCamera.gd" id="1_5ej81"]
+
+[node name="GameCamera" type="Camera2D"]
+zoom = Vector2(2, 2)
+script = ExtResource("1_5ej81")
+followPlayer = true
