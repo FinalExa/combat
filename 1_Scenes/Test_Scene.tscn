@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgtjmse0folll"]
+[gd_scene load_steps=7 format=3 uid="uid://bgtjmse0folll"]
 
+[ext_resource type="PackedScene" uid="uid://bo4fuaitjq07e" path="res://AttackSystem/frame_master.tscn" id="1_wt2yf"]
+[ext_resource type="Script" path="res://1_Scenes/Scripts/SceneManager.gd" id="1_wwfrm"]
 [ext_resource type="TileSet" uid="uid://chix8p272k4k2" path="res://Tilesets/tileset.tres" id="1_x6eh2"]
 [ext_resource type="PackedScene" uid="uid://bkjgovuck77sq" path="res://Camera/game_camera.tscn" id="2_dwyws"]
 [ext_resource type="PackedScene" uid="uid://dtdv3k4xtujj" path="res://Player/player.tscn" id="2_ydd30"]
 [ext_resource type="PackedScene" uid="uid://rv62s8xrtbeg" path="res://Monstrums/Gobootoo/gobootoo.tscn" id="4_1kgky"]
 
-[node name="Test_Scene" type="Node2D"]
+[node name="Test_Scene" type="Node2D" node_paths=PackedStringArray("frameMaster")]
 y_sort_enabled = true
+script = ExtResource("1_wwfrm")
+frameMaster = NodePath("FrameMaster")
+
+[node name="FrameMaster" parent="." instance=ExtResource("1_wt2yf")]
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true

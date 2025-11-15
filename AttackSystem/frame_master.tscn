@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo4fuaitjq07e"]
+
+[ext_resource type="Script" path="res://AttackSystem/Scripts/FrameMaster.gd" id="1_hcqh3"]
+
+[node name="FrameMaster" type="Node"]
+script = ExtResource("1_hcqh3")
+framesPerSecond = 60.0
