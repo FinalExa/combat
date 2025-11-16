@@ -13,33 +13,33 @@ movement = 0.0
 
 [sub_resource type="Resource" id="Resource_hkacb"]
 script = ExtResource("2_e1q3s")
-launchFrame = 60
+launchFrame = 30
 hitbox = NodePath("AttackHitbox2")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_074xf"]
-size = Vector2(128, 640)
+size = Vector2(64, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bj0s"]
-size = Vector2(640, 128)
+size = Vector2(256, 64)
 
 [node name="SwordHeavyAttack3" type="Node2D"]
 modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_cc034")
 hitMultiplier = 200.0
-attackDuration = 120
+attackDuration = 60
 attackData = Array[ExtResource("2_e1q3s")]([SubResource("Resource_de3hs"), SubResource("Resource_hkacb")])
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("3_alf3t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("RectangleShape2D_074xf")
 
 [node name="AttackHitbox2" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("3_alf3t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox2"]

@@ -13,23 +13,23 @@ movement = 0.0
 
 [sub_resource type="Resource" id="Resource_0ruv5"]
 script = ExtResource("2_2nvfk")
-launchFrame = 180
+launchFrame = 90
 hitbox = NodePath("AttackHitbox")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqjav"]
-size = Vector2(384, 384)
+size = Vector2(192, 256)
 
 [node name="SwordHeavyAttack4" type="Node2D"]
 modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_7218q")
 hitMultiplier = 500.0
-attackDuration = 240
+attackDuration = 120
 attackData = Array[ExtResource("2_2nvfk")]([SubResource("Resource_yushd"), SubResource("Resource_0ruv5")])
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(0, -192)
+position = Vector2(0, -128)
 script = ExtResource("3_uranc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]

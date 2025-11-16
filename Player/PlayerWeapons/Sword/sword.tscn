@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bk123t8lshpv3"]
+[gd_scene load_steps=15 format=3 uid="uid://bk123t8lshpv3"]
 
 [ext_resource type="Script" path="res://AttackSystem/Scripts/Weapon.gd" id="1_u8lg2"]
 [ext_resource type="PackedScene" uid="uid://cihwim016lpfy" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_1.tscn" id="2_7w883"]
@@ -11,6 +11,22 @@
 [ext_resource type="PackedScene" uid="uid://ctsxuqgsmh3sv" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_3.tscn" id="9_4hov3"]
 [ext_resource type="PackedScene" uid="uid://bbbrcgs2dk345" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_4.tscn" id="10_wpbkt"]
 [ext_resource type="PackedScene" uid="uid://cx6rdrn5cdysk" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_5.tscn" id="11_eaksk"]
+[ext_resource type="Texture2D" uid="uid://rmk2vedh807j" path="res://Player/Sprites/Weapons/playerWeaponSword.png" id="12_53sij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj5n0"]
+atlas = ExtResource("12_53sij")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5slpt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj5n0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Sword" type="Node2D" node_paths=PackedStringArray("baseMainAttack", "baseSecondaryAttack")]
 script = ExtResource("1_u8lg2")
@@ -58,3 +74,6 @@ weaponRef = NodePath("..")
 [node name="SwordHeavyAttack5" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("11_eaksk")]
 hitMultiplier = 300.0
 weaponRef = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5slpt")

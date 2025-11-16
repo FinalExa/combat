@@ -13,21 +13,21 @@ movement = 0.0
 
 [sub_resource type="Resource" id="Resource_ibx74"]
 script = ExtResource("2_2c4ev")
-launchFrame = 30
+launchFrame = 15
 hitbox = NodePath("AttackHitbox")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0vfy"]
-size = Vector2(384, 256)
+size = Vector2(128, 128)
 
-[node name="SwordQuickAttack1" type="Node2D"]
+[node name="SwordQuickAttack3" type="Node2D"]
 script = ExtResource("1_mydf5")
-attackDuration = 60
+attackDuration = 30
 attackData = Array[ExtResource("2_2c4ev")]([SubResource("Resource_74cy3"), SubResource("Resource_ibx74")])
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("2_4mt4x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]

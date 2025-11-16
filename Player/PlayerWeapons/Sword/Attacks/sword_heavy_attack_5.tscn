@@ -7,55 +7,55 @@
 [sub_resource type="Resource" id="Resource_4a2p1"]
 script = ExtResource("2_301wl")
 launchFrame = 0
-hitbox = NodePath("")
+hitbox = NodePath("AttackHitbox")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="Resource" id="Resource_12vr5"]
 script = ExtResource("2_301wl")
-launchFrame = 30
-hitbox = NodePath("")
+launchFrame = 15
+hitbox = NodePath("AttackHitbox2")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="Resource" id="Resource_urb2x"]
 script = ExtResource("2_301wl")
-launchFrame = 60
-hitbox = NodePath("")
+launchFrame = 30
+hitbox = NodePath("AttackHitbox3")
 sound = NodePath("")
 movement = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sb285"]
-size = Vector2(128, 256)
+size = Vector2(64, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggaub"]
-size = Vector2(256, 256)
+size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o04o7"]
-size = Vector2(384, 256)
+size = Vector2(192, 128)
 
 [node name="SwordHeavyAttack5" type="Node2D"]
 modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_rnqoe")
-attackDuration = 90
+attackDuration = 45
 attackData = Array[ExtResource("2_301wl")]([SubResource("Resource_4a2p1"), SubResource("Resource_12vr5"), SubResource("Resource_urb2x")])
 
 [node name="AttackHitbox" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("3_6xy2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 shape = SubResource("RectangleShape2D_sb285")
 
 [node name="AttackHitbox2" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("3_6xy2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox2"]
 shape = SubResource("RectangleShape2D_ggaub")
 
 [node name="AttackHitbox3" type="Area2D" parent="."]
-position = Vector2(0, -128)
+position = Vector2(0, -64)
 script = ExtResource("3_6xy2m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox3"]
