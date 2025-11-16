@@ -14,7 +14,6 @@ func Rotate(direction: Vector2):
 	lastDirection = direction
 	if (lastDirection != lastSavedDirection && lastDirection != Vector2.ZERO):
 		lastSavedDirection = lastDirection
-	print(self.rotation_degrees)
 
 func VerticalRotation(direction: Vector2):
 	if (direction.y != lastDirection.y):
