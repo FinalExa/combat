@@ -5,10 +5,8 @@ signal on_attack_end
 
 @export var attackDuration: int
 @export var attackCooldown: int
-@export var attackPhasesLaunch: Array[int]
-@export var attackHitboxes: Array[Node2D]
-@export var attackSounds: Array[AudioStreamPlayer]
-@export var attackMovements: Array[float]
+@export var attackData: Array[AttackData]
+@export var weaponRef: Weapon
 @export var characterRef: Node2D
 var frameMaster: FrameMaster
 var attackHitboxInstance: Node2D
@@ -22,6 +20,8 @@ var currentPhase: int
 var attackLocked: bool
 
 func _ready():
+	if (weaponRef != null && characterRef == null):
+		characterRef = weaponRef.characterRef
 	frameMaster = get_tree().root.get_child(0).frameMaster
 	frameMaster.RegisterAttack(self)
 	attackLocked = false
@@ -33,11 +33,12 @@ func ExtraReadyOperations():
 	pass
 
 func AddAttackHitbox(index):
-	if (index < attackHitboxes.size()):
-		if (attackSounds[index] != null && !attackSounds[index].playing):
-			attackSounds[index].play()
-		if (attackHitboxes[index] != null):
-			attackHitboxInstance = attackHitboxes[index]
+	if (index < attackData.size()):
+		var sound: AudioStreamPlayer = attackData[index].GetSoundFromPath(self)
+		if (sound != null && !sound.playing):
+			sound.play()
+		attackHitboxInstance = attackData[index].GetHitboxFromPath(self)
+		if (attackHitboxInstance != null):
 			if (attackHitboxInstance is AttackHitbox):
 				attackHitboxInstance.StartAttack()
 				attackHitboxInstance.characterRef = characterRef
@@ -48,14 +49,15 @@ func AddAttackHitbox(index):
 			ActivateOtherTypeOfAttackHitbox()
 
 func RemoveAttackHitbox(index):
-	if (index < attackHitboxes.size() && attackHitboxes[index] != null):
-		attackHitboxInstance = attackHitboxes[index]
-		if (attackHitboxInstance is AttackHitbox):
-			attackHitboxInstance.EndAttack()
-			return
-		if (attackHitboxInstance is ObjectSpawner):
-			return
-		DeactivateOtherTypeOfAttackHitbox()
+	if (index < attackData.size() && attackData[index] != null):
+		attackHitboxInstance = attackData[index].GetHitboxFromPath(self)
+		if (attackHitboxInstance != null):
+			if (attackHitboxInstance is AttackHitbox):
+				attackHitboxInstance.EndAttack()
+				return
+			if (attackHitboxInstance is ObjectSpawner):
+				return
+			DeactivateOtherTypeOfAttackHitbox()
 
 func ActivateOtherTypeOfAttackHitbox():
 	attackHitboxInstance.show()
@@ -69,7 +71,7 @@ func DeactivateOtherTypeOfAttackHitbox():
 		if (attackHitboxInstance.get_child(i) is CollisionShape2D || attackHitboxInstance.get_child(i) is CollisionPolygon2D):
 			attackHitboxInstance.get_child(i).disabled = true
 
-func start_attack():
+func StartAttack():
 	if (!attackLocked):
 		attackLaunched = true
 		attackFrame = 0
@@ -87,8 +89,8 @@ func PrepareHitboxes():
 	AddAttackHitbox(currentPhase)
 
 func EndAttack():
-	if (currentPhase >= attackPhasesLaunch.size()):
-		RemoveAttackHitbox(attackPhasesLaunch.size() - 1)
+	if (currentPhase >= attackData.size()):
+		RemoveAttackHitbox(attackData.size() - 1)
 		currentPhase = 0
 		CheckForCooldown()
 		OnAttackEnd()
@@ -122,7 +124,7 @@ func Attacking():
 			if (attackFrame < attackDuration):
 				AttackMovement(currentPhase - 1)
 				attackFrame += 1
-				if (currentPhase < attackPhasesLaunch.size() && attackFrame > attackPhasesLaunch[currentPhase]):
+				if (currentPhase < attackData.size() && attackFrame > attackData[currentPhase].launchFrame):
 					ExecuteAttackPhase()
 			else:
 				EndAttack()
@@ -134,23 +136,24 @@ func Attacking():
 				EndCooldown()
 
 func RemoveAttackHitboxes():
-	for i in attackHitboxes.size():
+	for i in attackData.size():
 		RemoveAttackHitbox(i)
 
 func CalculateCurrentAttackMovement(index: int):
-	if (attackMovements.size() > 0 && attackMovements[index] != null):
-		movementDirection = characterRef.GetRotator().get_current_look_direction()
+	if (attackData.size() > 0 && attackData[index].movement != null):
+		pass
+		#movementDirection = characterRef.GetRotator().get_current_look_direction()
 
 func AttackMovement(index: int):
-	if (attackMovements.size() > 0 && index < attackMovements.size() && attackMovements[index] != null):
-		var velocityValue: Vector2 = attackMovements[index] * movementDirection
+	if (attackData.size() > 0 && index < attackData.size() && attackData[index].movement != null):
+		var velocityValue: Vector2 = attackData[index].movement * movementDirection
 		characterRef.velocity = velocityValue
 
 func StopAllSounds():
-	if (attackSounds.size() > 0):
-		for i in attackSounds.size():
-			if (attackSounds[i] != null && attackSounds[i].playing):
-				attackSounds[i].stop()
+	for i in attackData.size():
+		var sound: AudioStreamPlayer = attackData[i].GetSoundFromPath(self)
+		if (sound != null && sound.playing):
+			sound.stop()
 
 func ActiveCooldownFeedback():
 	pass

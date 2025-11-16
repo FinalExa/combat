@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxg47my6rntxf"]
+
+[ext_resource type="Script" path="res://Player/Scripts/PlayerAttack.gd" id="1_osw30"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackData.gd" id="2_bwom7"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackHitbox.gd" id="2_iv863"]
+
+[sub_resource type="Resource" id="Resource_o0p1v"]
+script = ExtResource("2_bwom7")
+launchFrame = 0
+hitbox = NodePath("")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="Resource" id="Resource_2t8fm"]
+script = ExtResource("2_bwom7")
+launchFrame = 30
+hitbox = NodePath("AttackHitbox")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qt0cm"]
+size = Vector2(384, 256)
+
+[node name="SwordQuickAttack2" type="Node2D"]
+script = ExtResource("1_osw30")
+attackDuration = 60
+attackData = Array[ExtResource("2_bwom7")]([SubResource("Resource_o0p1v"), SubResource("Resource_2t8fm")])
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(0, -128)
+script = ExtResource("2_iv863")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_qt0cm")

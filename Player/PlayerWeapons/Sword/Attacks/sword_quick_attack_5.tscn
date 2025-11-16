@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://ctyhxw6k0t1ts"]
+
+[ext_resource type="Script" path="res://Player/Scripts/PlayerAttack.gd" id="1_o14es"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackData.gd" id="2_63t1m"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackHitbox.gd" id="3_vbl7x"]
+
+[sub_resource type="Resource" id="Resource_m7d2t"]
+script = ExtResource("2_63t1m")
+launchFrame = 0
+hitbox = NodePath("AttackHitbox")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="Resource" id="Resource_ughxn"]
+script = ExtResource("2_63t1m")
+launchFrame = 20
+hitbox = NodePath("AttackHitbox2")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="Resource" id="Resource_l6jw5"]
+script = ExtResource("2_63t1m")
+launchFrame = 40
+hitbox = NodePath("AttackHitbox3")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="Resource" id="Resource_c0ljc"]
+script = ExtResource("2_63t1m")
+launchFrame = 60
+hitbox = NodePath("AttackHitbox4")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="Resource" id="Resource_vp0tg"]
+script = ExtResource("2_63t1m")
+launchFrame = 80
+hitbox = NodePath("AttackHitbox5")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olsw2"]
+size = Vector2(128, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlcdn"]
+size = Vector2(128, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddwbv"]
+size = Vector2(128, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dt5l"]
+size = Vector2(384, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwtdr"]
+size = Vector2(384, 128)
+
+[node name="SwordQuickAttack5" type="Node2D"]
+script = ExtResource("1_o14es")
+hitMultiplier = 50.0
+attackDuration = 100
+attackData = Array[ExtResource("2_63t1m")]([SubResource("Resource_m7d2t"), SubResource("Resource_ughxn"), SubResource("Resource_l6jw5"), SubResource("Resource_c0ljc"), SubResource("Resource_vp0tg")])
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(-128, -128)
+script = ExtResource("3_vbl7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_olsw2")
+
+[node name="AttackHitbox2" type="Area2D" parent="."]
+position = Vector2(0, -128)
+script = ExtResource("3_vbl7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox2"]
+shape = SubResource("RectangleShape2D_jlcdn")
+
+[node name="AttackHitbox3" type="Area2D" parent="."]
+position = Vector2(128, -128)
+script = ExtResource("3_vbl7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox3"]
+shape = SubResource("RectangleShape2D_ddwbv")
+
+[node name="AttackHitbox4" type="Area2D" parent="."]
+position = Vector2(0, -192)
+script = ExtResource("3_vbl7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox4"]
+shape = SubResource("RectangleShape2D_3dt5l")
+
+[node name="AttackHitbox5" type="Area2D" parent="."]
+position = Vector2(0, -64)
+script = ExtResource("3_vbl7x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox5"]
+shape = SubResource("RectangleShape2D_xwtdr")

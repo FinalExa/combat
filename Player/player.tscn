@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtdv3k4xtujj"]
+[gd_scene load_steps=10 format=3 uid="uid://dtdv3k4xtujj"]
 
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_ci0fj"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerReferences.gd" id="2_lwywf"]
 [ext_resource type="Texture2D" uid="uid://6do8v7voit5k" path="res://Player/Sprites/playerSprite.png" id="2_tjp5d"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerInputs.gd" id="3_h0yjc"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerMovement.gd" id="4_pj4k7"]
+[ext_resource type="PackedScene" uid="uid://bk123t8lshpv3" path="res://Player/PlayerWeapons/Sword/sword.tscn" id="6_6yb0x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u2pgp"]
 radius = 8.0
@@ -51,3 +52,7 @@ shape = SubResource("CapsuleShape2D_u2pgp")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_oceeq")
 autoplay = "default"
+
+[node name="Sword" parent="." node_paths=PackedStringArray("characterRef", "playerInputs") instance=ExtResource("6_6yb0x")]
+characterRef = NodePath("..")
+playerInputs = NodePath("../PlayerInputs")

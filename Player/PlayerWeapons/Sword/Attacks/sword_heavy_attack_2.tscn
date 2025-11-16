@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bt7yef3p6txin"]
+
+[ext_resource type="Script" path="res://Player/Scripts/PlayerAttack.gd" id="1_1gnm8"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackData.gd" id="2_c6iqk"]
+[ext_resource type="Script" path="res://AttackSystem/Scripts/AttackHitbox.gd" id="2_e7gpa"]
+
+[sub_resource type="Resource" id="Resource_0w5xe"]
+script = ExtResource("2_c6iqk")
+launchFrame = 50
+hitbox = NodePath("AttackHitbox")
+sound = NodePath("")
+movement = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4p8g"]
+size = Vector2(128, 512)
+
+[node name="SwordHeavyAttack2" type="Node2D"]
+modulate = Color(0, 0, 0, 1)
+script = ExtResource("1_1gnm8")
+hitMultiplier = 250.0
+attackDuration = 100
+attackData = Array[ExtResource("2_c6iqk")]([SubResource("Resource_0w5xe")])
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+position = Vector2(0, -128)
+script = ExtResource("2_e7gpa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+shape = SubResource("RectangleShape2D_j4p8g")

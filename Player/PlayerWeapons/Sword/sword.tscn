@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://bk123t8lshpv3"]
+
+[ext_resource type="Script" path="res://AttackSystem/Scripts/Weapon.gd" id="1_u8lg2"]
+[ext_resource type="PackedScene" uid="uid://cihwim016lpfy" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_1.tscn" id="2_7w883"]
+[ext_resource type="PackedScene" uid="uid://cxg47my6rntxf" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_2.tscn" id="3_huswv"]
+[ext_resource type="PackedScene" uid="uid://bog0rowpk7b6e" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_3.tscn" id="4_e81y4"]
+[ext_resource type="PackedScene" uid="uid://kn12wf6vtwr7" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_4.tscn" id="5_te0kv"]
+[ext_resource type="PackedScene" uid="uid://ctyhxw6k0t1ts" path="res://Player/PlayerWeapons/Sword/Attacks/sword_quick_attack_5.tscn" id="6_ovvg6"]
+[ext_resource type="PackedScene" uid="uid://k8ioymyfhknw" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_1.tscn" id="7_4wet3"]
+[ext_resource type="PackedScene" uid="uid://bt7yef3p6txin" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_2.tscn" id="8_kx7vv"]
+[ext_resource type="PackedScene" uid="uid://ctsxuqgsmh3sv" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_3.tscn" id="9_4hov3"]
+[ext_resource type="PackedScene" uid="uid://bbbrcgs2dk345" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_4.tscn" id="10_wpbkt"]
+[ext_resource type="PackedScene" uid="uid://cx6rdrn5cdysk" path="res://Player/PlayerWeapons/Sword/Attacks/sword_heavy_attack_5.tscn" id="11_eaksk"]
+
+[node name="Sword" type="Node2D" node_paths=PackedStringArray("baseMainAttack", "baseSecondaryAttack")]
+script = ExtResource("1_u8lg2")
+baseDamage = 20.0
+baseMainAttack = NodePath("SwordQuickAttack1")
+baseSecondaryAttack = NodePath("SwordHeavyAttack1")
+comboResetTime = 1.0
+comboEndCooldown = 1.0
+
+[node name="SwordQuickAttack1" parent="." node_paths=PackedStringArray("mainAttackFollow", "secondaryAttackFollow", "weaponRef") instance=ExtResource("2_7w883")]
+mainAttackFollow = NodePath("../SwordQuickAttack2")
+secondaryAttackFollow = NodePath("../SwordHeavyAttack2")
+weaponRef = NodePath("..")
+
+[node name="SwordHeavyAttack1" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("7_4wet3")]
+weaponRef = NodePath("..")
+
+[node name="SwordQuickAttack2" parent="." node_paths=PackedStringArray("mainAttackFollow", "secondaryAttackFollow", "weaponRef") instance=ExtResource("3_huswv")]
+mainAttackFollow = NodePath("../SwordQuickAttack3")
+secondaryAttackFollow = NodePath("../SwordHeavyAttack3")
+weaponRef = NodePath("..")
+
+[node name="SwordHeavyAttack2" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("8_kx7vv")]
+weaponRef = NodePath("..")
+
+[node name="SwordQuickAttack3" parent="." node_paths=PackedStringArray("mainAttackFollow", "secondaryAttackFollow", "weaponRef") instance=ExtResource("4_e81y4")]
+mainAttackFollow = NodePath("../SwordQuickAttack4")
+secondaryAttackFollow = NodePath("../SwordHeavyAttack4")
+weaponRef = NodePath("..")
+
+[node name="SwordHeavyAttack3" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("9_4hov3")]
+weaponRef = NodePath("..")
+
+[node name="SwordQuickAttack4" parent="." node_paths=PackedStringArray("mainAttackFollow", "secondaryAttackFollow", "weaponRef") instance=ExtResource("5_te0kv")]
+mainAttackFollow = NodePath("../SwordQuickAttack5")
+secondaryAttackFollow = NodePath("../SwordHeavyAttack5")
+weaponRef = NodePath("..")
+
+[node name="SwordHeavyAttack4" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("10_wpbkt")]
+weaponRef = NodePath("..")
+
+[node name="SwordQuickAttack5" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("6_ovvg6")]
+weaponRef = NodePath("..")
+
+[node name="SwordHeavyAttack5" parent="." node_paths=PackedStringArray("weaponRef") instance=ExtResource("11_eaksk")]
+hitMultiplier = 300.0
+weaponRef = NodePath("..")
