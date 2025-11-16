@@ -76,4 +76,5 @@ hitMultiplier = 300.0
 weaponRef = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_5slpt")
