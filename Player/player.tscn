@@ -28,6 +28,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("playerReferences")]
+motion_mode = 1
 script = ExtResource("1_ci0fj")
 playerReferences = NodePath("PlayerReferences")
 

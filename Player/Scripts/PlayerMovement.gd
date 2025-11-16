@@ -17,7 +17,6 @@ func SetSpeed(delta):
 	if (playerInputs.inputDirection != Vector2.ZERO):
 		currentSpeed = clamp(currentSpeed + (acceleration * delta), 0, maxSpeed)
 		player.velocity = currentSpeed * playerInputs.inputDirection
-		player.move_and_slide()
 		emit_signal("movement_direction", playerInputs.inputDirection)
 		return
 	currentSpeed = 0

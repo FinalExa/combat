@@ -1,6 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://rv62s8xrtbeg"]
+[gd_scene load_steps=15 format=3 uid="uid://rv62s8xrtbeg"]
 
 [ext_resource type="Texture2D" uid="uid://ce0ex31k3qc0g" path="res://Monstrums/Gobootoo/Sprites/gobootoo.png" id="1_gq1rl"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/Monstrum.gd" id="1_qeoio"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/MonstrumReferences.gd" id="2_cn0ns"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/MonstrumMovement.gd" id="4_2uh8d"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/MonstrumPlayerCheck.gd" id="5_cbado"]
+[ext_resource type="Script" path="res://BehaviorTree/Scripts/BehaviorTree.gd" id="5_obd7e"]
+[ext_resource type="Script" path="res://BehaviorTree/Scripts/BT_Sequence.gd" id="6_mhhhb"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/Scripts/BehaviorTree/TaskPlayerIsInRange.gd" id="8_22ct0"]
+[ext_resource type="Script" path="res://BehaviorTree/Scripts/BT_Selector.gd" id="8_guuca"]
+[ext_resource type="Script" path="res://Monstrums/1_Scripts/Scripts/BehaviorTree/TaskMoveToPlayer.gd" id="10_7s7rk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v7t4"]
 radius = 40.0
@@ -21,7 +30,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Gobootoo" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqkwi"]
+radius = 448.071
+
+[node name="Gobootoo" type="CharacterBody2D" node_paths=PackedStringArray("monstrumReferences")]
+motion_mode = 1
+script = ExtResource("1_qeoio")
+monstrumReferences = NodePath("MonstrumReferences")
+
+[node name="MonstrumReferences" type="Node" parent="." node_paths=PackedStringArray("monstrumPlayerCheck")]
+script = ExtResource("2_cn0ns")
+monstrumPlayerCheck = NodePath("../MonstrumPlayerCheck")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
@@ -32,3 +51,45 @@ shape = SubResource("CapsuleShape2D_2v7t4")
 position = Vector2(0, -48)
 sprite_frames = SubResource("SpriteFrames_og6ym")
 autoplay = "default"
+
+[node name="MonstrumMovement" type="NavigationAgent2D" parent="." node_paths=PackedStringArray("monstrumRef")]
+avoidance_enabled = true
+radius = 200.0
+script = ExtResource("4_2uh8d")
+monstrumRef = NodePath("..")
+defaultMovementSpeed = 300.0
+distanceTolerance = 150.0
+repathTimerDuration = 0.25
+
+[node name="MonstrumPlayerCheck" type="Area2D" parent="."]
+script = ExtResource("5_cbado")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MonstrumPlayerCheck"]
+shape = SubResource("CircleShape2D_gqkwi")
+
+[node name="BehaviorTree" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("5_obd7e")
+root = NodePath("BT_Sequence")
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree" node_paths=PackedStringArray("children")]
+script = ExtResource("6_mhhhb")
+children = [NodePath("BT_Selector")]
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Sequence" node_paths=PackedStringArray("children")]
+script = ExtResource("8_guuca")
+children = [NodePath("TaskPlayerIsInRange"), NodePath("TaskMoveToPlayer")]
+
+[node name="TaskPlayerIsInRange" type="Node" parent="BehaviorTree/BT_Sequence/BT_Selector" node_paths=PackedStringArray("monstrumMovement", "monstrumPlayerCheck", "monstrumRef")]
+script = ExtResource("8_22ct0")
+monstrumMovement = NodePath("../../../../MonstrumMovement")
+monstrumPlayerCheck = NodePath("../../../../MonstrumPlayerCheck")
+monstrumRef = NodePath("../../../..")
+
+[node name="TaskMoveToPlayer" type="Node" parent="BehaviorTree/BT_Sequence/BT_Selector" node_paths=PackedStringArray("monstrumMovement", "monstrumPlayerCheck", "monstrumRef")]
+script = ExtResource("10_7s7rk")
+monstrumMovement = NodePath("../../../../MonstrumMovement")
+monstrumPlayerCheck = NodePath("../../../../MonstrumPlayerCheck")
+monstrumRef = NodePath("../../../..")
+
+[connection signal="body_entered" from="MonstrumPlayerCheck" to="MonstrumPlayerCheck" method="_on_body_entered"]
+[connection signal="body_exited" from="MonstrumPlayerCheck" to="MonstrumPlayerCheck" method="_on_body_exited"]
